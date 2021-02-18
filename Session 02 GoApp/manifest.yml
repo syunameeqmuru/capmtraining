@@ -1,0 +1,4 @@
+applications:
+- name: anubhavgoapp
+  memory: 1024M
+  random-route: true
