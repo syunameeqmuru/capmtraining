@@ -1,5 +1,6 @@
 package com.anubhavtrainings.myclasses;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,11 +10,23 @@ public class Laptop {
 	private int weight;
 	private int height;
 	private String brandName;
+	@Autowired
+	private IHardDisk hdd;
+	
+//	public Laptop() {
+//		//tight coupling
+//		//we have to write code to create object
+//		hdd = new SamsungHDD();
+//		
+//	}
+	
 	public int getLength() {
 		return length;
 	}
 	@Override
 	public String toString() {
+		hdd.powerOnHDD();
+		hdd.readHDD();
 		return "Laptop ["  + " brandName=" + brandName + "]";
 	}
 	public void setLength(int length) {
