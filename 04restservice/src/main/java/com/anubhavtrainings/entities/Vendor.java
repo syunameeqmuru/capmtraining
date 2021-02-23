@@ -1,9 +1,12 @@
 package com.anubhavtrainings.entities;
 
 import java.util.Date;
+
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope(value = "prototype")
 public class Vendor {
 	
 	public String code;

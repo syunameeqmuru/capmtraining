@@ -1,6 +1,7 @@
 package com.anubhavtrainings.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,26 +23,29 @@ public class VendorController {
 	
 	//ES_GET_ENTITYSET
 	@RequestMapping("/vendor")
-	public HashMap<String, Vendor> getVendors(){
+	public List<Vendor> getVendors(){
 		return vendorService.readAllVendors();		
-	}
-	
-	//ES_GET_ENTITY
-	@RequestMapping("/vendor/{vendorCode}")
-	public Vendor getVendorById(@PathVariable("vendorCode") String code) {
-		return vendorService.getSingleVendorById(code);
 	}
 	
 	//ES_CREATE_ENTITY
 	@PostMapping("/vendor")
 	public Vendor createVendor(@RequestBody Vendor myPostBody) {
+		System.out.println(myPostBody);
 		return vendorService.createVendor(myPostBody);
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/changeVendor")
-	public Vendor updateVendor(@RequestBody Vendor vendor) {
-		return vendorService.changeVendor(vendor);
-	}
+	//ES_GET_ENTITY
+//	@RequestMapping("/vendor/{vendorCode}")
+//	public Vendor getVendorById(@PathVariable("vendorCode") String code) {
+//		return vendorService.getSingleVendorById(code);
+//	}
+	
+
+	
+//	@RequestMapping(method=RequestMethod.PUT, value="/changeVendor")
+//	public Vendor updateVendor(@RequestBody Vendor vendor) {
+//		return vendorService.changeVendor(vendor);
+//	}
 	
 	
 	

@@ -19,7 +19,6 @@ public class Laptop {
 //		hdd = new SamsungHDD();
 //		
 //	}
-	
 	public int getLength() {
 		return length;
 	}
