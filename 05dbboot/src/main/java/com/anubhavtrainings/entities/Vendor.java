@@ -10,7 +10,7 @@ public class Vendor {
 	@Id
 	@Column(nullable=false, name="ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Long Id;
+	public Long id;
 	@Column(nullable=false, name="COMPANY_NAME")
 	public String companyName;
 	@Column(nullable=false, name="FIRST_NAME")
@@ -34,7 +34,7 @@ public class Vendor {
 	public Vendor(Long id, String companyName, String firstName, String lastName, String website, String email,
 			String status, String gstNo) {
 		super();
-		Id = id;
+		this.id = id;
 		this.companyName = companyName;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -44,10 +44,10 @@ public class Vendor {
 		this.gstNo = gstNo;
 	}
 	public Long getId() {
-		return Id;
+		return this.id;
 	}
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getCompanyName() {
 		return companyName;
