@@ -1,0 +1,6 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" 
+	controllerName="anubhav.controller.Main">
+	<Page title="Welcome to My App">
+		<Button text="loadData" press="onLoadData"></Button>
+	</Page>
+</mvc:View>

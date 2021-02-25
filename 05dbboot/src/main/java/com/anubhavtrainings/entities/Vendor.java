@@ -1,5 +1,8 @@
 package com.anubhavtrainings.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -26,7 +29,18 @@ public class Vendor {
 	@Column(nullable=false, name="GST_NO")
 	public String gstNo;
 	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="vendor", referencedColumnName="ID")
+	private List<address> addresses = new ArrayList<>();
 	
+	public List<address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<address> addresses) {
+		this.addresses = addresses;
+	}
+
 	public Vendor() {
 		
 	}
