@@ -34,7 +34,7 @@ sap.ui.define(
 		onLoadData: function(){
 			//alert("todo: we will call our microservice to load vendors");
 			var that = this;
-			service.callService("/newVendor", "GET", {}).then(function(data){
+			service.callService("/vendor", "GET", {}).then(function(data){
 				//console.log(data);
 				//Get the object of the table
 				var oTable = that.getView().byId("idTable");
