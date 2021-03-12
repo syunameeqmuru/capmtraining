@@ -14,6 +14,7 @@ import javax.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 
 import com.anubhavtrainings.entities.vendor;
+import com.sap.db.jdbcext.wrapper.PreparedStatement;
 
 import argo.jdom.*;
 import argo.saj.InvalidSyntaxException;
@@ -95,6 +96,45 @@ public class vendorOperation {
 		
 		return vendorList;
 	}
+	
+	public vendor createVendor(vendor payload) throws SQLException {
+		String lv_query = "INSERT INTO VENDOR (id, firstname, lastname, companyname) VALUES('" + payload.getId() + "','" + payload.getFirstName() + "','" + payload.getLastName() + "','" + payload.getCompanyName() +"')";
+		//PreparedStatement prpStmt = (PreparedStatement) conn.prepareStatement(lv_query);
+		
+		int row = stmt.executeUpdate(lv_query);
+		
+//		prpStmt.setString(1, payload.getId());
+//		prpStmt.setString(2, payload.getFirstName());
+//		prpStmt.setString(3, payload.getLastName());
+//		prpStmt.setString(4, payload.getCompanyName());
+//		prpStmt.setString(5, payload.getWebsite());
+//		prpStmt.setString(6, payload.getEmail());
+//		prpStmt.setString(7, payload.getGstNumber());
+		
+		
+		//int row = prpStmt.executeUpdate();
+		
+		return payload;
+		
+	}
+	
+	public vendor getSingleVendor(String id) throws SQLException {
+		
+		vendor vendorObj = new vendor();
+		rs = stmt.executeQuery("SELECT * from VENDOR where id = " + id );
+		while(rs.next()) {
+			vendorObj.setId(rs.getString("ID"));
+			vendorObj.setFirstName(rs.getString("FIRSTNAME"));
+			vendorObj.setLastName(rs.getString("LASTNAME"));
+			vendorObj.setEmail(rs.getString("EMAIL"));
+			vendorObj.setCompanyName(rs.getString("COMPANYNAME"));
+			vendorObj.setGstNumber(rs.getString("GSTNUMBER"));
+		}
+		
+		return vendorObj;
+		
+	}
+	
 	
 	@PreDestroy
 	public void endConnection() throws SQLException {
