@@ -13,6 +13,7 @@ import com.anubhavtrainings.service.IAddressPersistence;
 
 public class AddressOdataAgent implements ODataInterface {
 
+	
 	@Autowired
 	IAddressPersistence addressAPI;	
 	

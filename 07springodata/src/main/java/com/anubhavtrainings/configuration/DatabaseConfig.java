@@ -1,6 +1,5 @@
 package com.anubhavtrainings.configuration;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.cloud.config.java.AbstractCloudConfig;
 import org.springframework.cloud.service.relational.DataSourceConfig;
 import org.springframework.context.annotation.Bean;
@@ -20,12 +18,11 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import com.anubhavtrainings.entities.Vendor;
-import com.zaxxer.hikari.HikariDataSource;
+
 
 @Configuration
-//@Profile("cloud")
 public class DatabaseConfig extends AbstractCloudConfig {
-	
+
 
     /**
      * (Step 1) Parses the local environment variable VCAP_SERVICES (containing
@@ -35,7 +32,7 @@ public class DatabaseConfig extends AbstractCloudConfig {
      */
 	//
 	Logger cloudFoundryDataSourceConfigLogger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Value("${vcap.services.mysql.credentials.username}")
 	private String username;
 
@@ -50,7 +47,7 @@ public class DatabaseConfig extends AbstractCloudConfig {
 
 	@Value("${vcap.services.mysql.credentials.dbname}")
 	private String dbname;	
-	
+
     @Bean
     public DataSource dataSource() {
         /*
@@ -63,16 +60,17 @@ public class DatabaseConfig extends AbstractCloudConfig {
         List<String> dataSourceNames = Arrays.asList("BasicDbcpPooledDataSourceCreator",
                 "TomcatJdbcPooledDataSourceCreator", "HikariCpPooledDataSourceCreator",
                 "TomcatDbcpPooledDataSourceCreator");
-        
+
         DataSourceConfig dbConfig = new DataSourceConfig(dataSourceNames);
         DataSource hikariDataSource =  connectionFactory().dataSource(dbConfig);
-        
+
         cloudFoundryDataSourceConfigLogger.info("Detected Host name is : " + this.hostname);
         cloudFoundryDataSourceConfigLogger.info("Detected port name is : " + this.port);
-        cloudFoundryDataSourceConfigLogger.info("Detected Schema name is : " + this.dbname);
+        cloudFoundryDataSourceConfigLogger.info("Detected DB name is : " + this.dbname);
         cloudFoundryDataSourceConfigLogger.info("Detected User name is : " + this.username);
-        
+
         return hikariDataSource;
+
     }
 
     /**
