@@ -26,6 +26,7 @@ const hdiConfig = {
     password: xsenvObj.hana.hdi_password,
     useTLS: true
 };
+console.log(hdiConfig);
 
 const client = hdb.createClient(hdiConfig);
 
@@ -45,6 +46,7 @@ function checkRole(req, res, next){
 }
 
 function getVendorData(req,res){
+    console.log(xsenvObj.hana);
     client.exec(
         'select * from "' + xsenvObj.hana.schema + '"."VENDOR"',
         function(err, rows){
