@@ -1,4 +1,7 @@
 namespace anubhav.db;
+using { cuid, managed, temporal, Currency } from '@sap/cds/common';
+using { anubhav.common } from './common';
+
 
 type Guid : String(32);
 
@@ -46,43 +49,53 @@ context master {
         SUPPLIER_GUID: Association to master.businesspartner;
         TAX_TARIF_CODE: Integer;
         MEASURE_UNIT: String(2);
-        WEIGHT_MEASURE	: Decimal;
+        WEIGHT_MEASURE	: Decimal(5,2);
         WEIGHT_UNIT: String(2);
         CURRENCY_CODE:String(4);
-        PRICE: Decimal;
-        WIDTH:Decimal;	
-        DEPTH:Decimal;	
-        HEIGHT:	Decimal;
+        PRICE: Decimal(15,2);
+        WIDTH:Decimal(5,2);	
+        DEPTH:Decimal(5,2);	
+        HEIGHT:	Decimal(5,2);
         DIM_UNIT:String(2);
 
+    }
+
+    entity employees: cuid, temporal {
+        nameFirst: String(40);
+        nameMiddle: String(40);	
+        nameLast: String(40);	
+        nameInitials: String(40);	
+        sex	: common.Gender;
+        language: String(1);
+        phoneNumber: common.PhoneNumber;
+        email: common.Email;
+        loginName: String(12);
+        Currency: Currency;
+        salaryAmount: common.AmountT;	
+        accountNumber: String(16);	
+        bankId: String(8);
+        bankName: String(64);
     }
 
 }
 
 context transaction {
     
-     entity purchaseorder {
+     entity purchaseorder: common.Amount {
             key NODE_KEY:Guid;
             PO_ID: String(24);     	
             PARTNER_GUID: association to master.businesspartner;                      
-            CURRENCY_CODE: String(4);	
-            GROSS_AMOUNT:Decimal;	
-            NET_AMOUNT:Decimal;
-            TAX_AMOUNT:Decimal;          	
             LIFECYCLE_STATUS: String(1);	
             OVERALL_STATUS: String(1);
             Items: association to many poitems on Items.PARENT_KEY = $self
      }
 
-     entity poitems {
+     entity poitems: common.Amount {
             key NODE_KEY: Guid;               	
             PARENT_KEY: association to purchaseorder;
             PO_ITEM_POS: Integer;	
             PRODUCT_GUID: association to master.product;           	
-            CURRENCY_CODE: String(4);		
-            GROSS_AMOUNT:Decimal;	
-            NET_AMOUNT:Decimal;
-            TAX_AMOUNT:Decimal;  
+              
      }
 
 }
