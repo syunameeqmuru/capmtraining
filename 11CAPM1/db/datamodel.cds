@@ -18,6 +18,14 @@ context master {
         COMPANY_NAME: String(250);
     }
 
+    annotate businesspartner with{
+        NODE_KEY @title :  '{i18n>bp_key}';
+        BP_ROLE @title: '{i18n>bp_role}';
+        COMPANY_NAME @title : '{i18n>company_name}';
+        BP_ID @title : '{i18n>bp_id}';
+        EMAIL_ADDRESS @title : '{i18n>email_addr}'
+    };
+
     entity address {
         key NODE_KEY: Guid;
         CITY: String(44);
@@ -33,19 +41,19 @@ context master {
         businesspartner: Association to one businesspartner on businesspartner.ADDRESS_GUID = $self;
     }
 
-    entity prodtext {
-        key NODE_KEY: Guid;
-        PARENT_KEY: Guid;
-        LANGUAGE:String(2);	
-        TEXT: String(256);        
-    }
+    // entity prodtext {
+    //     key NODE_KEY: Guid;
+    //     PARENT_KEY: Guid;
+    //     LANGUAGE:String(2);	
+    //     TEXT: String(256);        
+    // }
     
     entity product {
         key NODE_KEY: Guid;
         PRODUCT_ID: String(28);
         TYPE_CODE: String(2);
         CATEGORY: String(32);
-        DESC_GUID: Association to prodtext;
+        DESCRIPTION: localized String(255);
         SUPPLIER_GUID: Association to master.businesspartner;
         TAX_TARIF_CODE: Integer;
         MEASURE_UNIT: String(2);
@@ -60,7 +68,8 @@ context master {
 
     }
 
-    entity employees: cuid, temporal {
+    
+    entity employees: cuid {
         nameFirst: String(40);
         nameMiddle: String(40);	
         nameLast: String(40);	
@@ -78,6 +87,8 @@ context master {
     }
 
 }
+
+
 
 context transaction {
     
